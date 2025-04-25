@@ -1,0 +1,2 @@
+/Users/vubaochau/Flutter/application/demo_structure/android/app/.cxx/Debug/z5f6t161/x86_64/CMakeFiles/edit_cache.dir
+/Users/vubaochau/Flutter/application/demo_structure/android/app/.cxx/Debug/z5f6t161/x86_64/CMakeFiles/rebuild_cache.dir
