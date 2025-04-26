@@ -44,6 +44,7 @@ linter:
     - sort_constructors_first
     - sort_child_properties_last
     - combinators_ordering
+    - prefer_const_constructors
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
