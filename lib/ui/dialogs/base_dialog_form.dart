@@ -1,3 +1,4 @@
+import 'package:demo_structure/core/themes/color.dart';
 import 'package:flutter/material.dart';
 
 class BaseDialogForm extends StatelessWidget {
@@ -7,6 +8,16 @@ class BaseDialogForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 600),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.surface,
+        ),
+        child: child,
+      ),
+    );
   }
 }
