@@ -24,9 +24,7 @@ class MySubmitButton extends StatelessWidget {
         backgroundColor: backgroundColor,
         fixedSize: Size(MediaQuery.sizeOf(context).width, 50),
         disabledBackgroundColor: disabledBackgroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       ),
       child: Text(
         text,
@@ -34,7 +32,7 @@ class MySubmitButton extends StatelessWidget {
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
         style: AppStyles.button.copyWith(
-          color: onPressed == null ? Colors.white.withOpacity(0.5) : null,
+          color: onPressed == null ? Colors.white.withValues(alpha: .5) : null,
         ),
       ),
     );

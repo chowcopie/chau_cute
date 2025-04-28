@@ -8,7 +8,7 @@ class MyTextFieldStyle {
     this.errorText,
     this.counterText = '',
     this.style = const TextStyle(color: AppColors.inputText, fontSize: 16),
-    this.hintStyle = const TextStyle(color: AppColors.inputText),
+    this.hintStyle = const TextStyle(color: AppColors.intputHint),
     this.errorStyle,
     this.textAlign = TextAlign.start,
     this.textAlignVertical = TextAlignVertical.center,
@@ -18,18 +18,24 @@ class MyTextFieldStyle {
     this.maxLines,
     this.maxLength,
     this.inputFormatters,
-    this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    this.contentPadding = const EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 12,
+    ),
     this.haveBorder = false,
     this.expands = false,
     this.readOnly = false,
-    this.suffixIconConstraints =
-        const BoxConstraints(minWidth: 48, minHeight: 48),
-    this.prefixIconConstraints =
-        const BoxConstraints(minWidth: 48, minHeight: 48),
-    this.fillColor = AppColors.textFieldBg,
-    this.iconColor = AppColors.inputText,
-    this.borderColor = AppColors.inputText,
+    this.suffixIconConstraints = const BoxConstraints(
+      minWidth: 48,
+      minHeight: 48,
+    ),
+    this.prefixIconConstraints = const BoxConstraints(
+      minWidth: 48,
+      minHeight: 48,
+    ),
+    this.fillColor = AppColors.inputFill,
+    this.iconColor = AppColors.inputIcon,
+    this.borderColor = AppColors.inputBorder,
     this.borderRadius = 5,
   });
 

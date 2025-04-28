@@ -2,7 +2,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 
 class DeviceUtils {
-  DeviceUtils._privateConstructor();
+  DeviceUtils._();
 
   static Future<Map<String, dynamic>> getDeviceInfo() async {
     DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();

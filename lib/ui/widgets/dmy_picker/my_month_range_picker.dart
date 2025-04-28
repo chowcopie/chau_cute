@@ -119,7 +119,7 @@ class _MyMonthRangePickerState extends State<MyMonthRangePicker> {
                 Text(
                   getText(),
                   style: const TextStyle(
-                    color: AppColors.text,
+                    color: AppColors.onSurface,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),

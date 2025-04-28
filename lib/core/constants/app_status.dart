@@ -1,1 +1,3 @@
-class AppStatus {}
+class AppStatus {
+  AppStatus._();
+}

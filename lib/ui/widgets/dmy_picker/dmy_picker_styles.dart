@@ -9,49 +9,47 @@ class DMYPickerStyle {
     },
     firstDayOfWeekIndex: DateTime.monday,
     currentDateStyle: const TextStyle(
-      color: AppColors.mainColor,
+      color: AppColors.primary,
       fontWeight: FontWeight.w600,
     ),
-    nextIcon: const Icon(Icons.chevron_right, color: AppColors.mainColor),
-    prevIcon: const Icon(Icons.chevron_left, color: AppColors.mainColor),
+    nextIcon: const Icon(Icons.chevron_right, color: AppColors.primary),
+    prevIcon: const Icon(Icons.chevron_left, color: AppColors.primary),
     selectedSingleDateDecoration: BoxDecoration(
-      color: AppColors.mainColor,
+      color: AppColors.primary,
       borderRadius: BorderRadius.circular(10),
     ),
     selectedPeriodStartDecoration: const BoxDecoration(
-      color: AppColors.mainColor,
+      color: AppColors.primary,
       borderRadius: BorderRadiusDirectional.only(
         topStart: Radius.circular(10.0),
         bottomStart: Radius.circular(10.0),
       ),
     ),
     selectedPeriodLastDecoration: const BoxDecoration(
-      color: AppColors.mainColor,
+      color: AppColors.primary,
       borderRadius: BorderRadiusDirectional.only(
         topEnd: Radius.circular(10),
         bottomEnd: Radius.circular(10),
       ),
     ),
     selectedPeriodMiddleDecoration: const BoxDecoration(
-      color: AppColors.mainColor,
+      color: AppColors.primary,
     ),
   );
 
   static ButtonStyle confirmBtnStyle = ElevatedButton.styleFrom(
-    backgroundColor: AppColors.mainColor,
+    backgroundColor: AppColors.primary,
   );
 
-  static const TextStyle cancelTextStyle = TextStyle(
-    color: AppColors.mainColor,
-  );
+  static const TextStyle cancelTextStyle = TextStyle(color: AppColors.primary);
 
   static final EventDecoration currentDayDecoration = EventDecoration(
     boxDecoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: AppColors.mainColor),
+      border: Border.all(color: AppColors.primary),
     ),
     textStyle: const TextStyle(
-      color: AppColors.mainColor,
+      color: AppColors.primary,
       fontWeight: FontWeight.w600,
     ),
   );
@@ -59,7 +57,7 @@ class DMYPickerStyle {
   static final EventDecoration currentDayDisableDecoration = EventDecoration(
     boxDecoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: AppColors.mainColor.withOpacity(0.3)),
+      border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
     ),
     textStyle: datePickerStyle.disabledDateStyle,
   );

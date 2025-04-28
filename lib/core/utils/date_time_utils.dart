@@ -1,5 +1,5 @@
 class DateTimeUtils {
-  DateTimeUtils._privateConstructor();
+  DateTimeUtils._();
 
   static DateTime min(DateTime a, DateTime b) {
     if (a.compareTo(b) < 0) return a;
