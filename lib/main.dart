@@ -1,5 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'dart:ui';
+
+import 'package:demo_structure/core/themes/theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +32,17 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         routerConfig: router,
+        theme: AppThemes.lightTheme,
+        darkTheme: AppThemes.darkTheme,
+        scrollBehavior: const MaterialScrollBehavior().copyWith(
+          dragDevices: {
+            PointerDeviceKind.mouse,
+            PointerDeviceKind.touch,
+            PointerDeviceKind.stylus,
+            PointerDeviceKind.trackpad,
+            PointerDeviceKind.unknown,
+          },
+        ),
         debugShowCheckedModeBanner: false,
       ),
     );
