@@ -34,7 +34,7 @@ class ProfilePage extends StatelessWidget {
               onPressed:
                   () => BookingRoute(
                     uid: uid,
-                    bookingId: 'hoangdinhphu',
+                    booking: 'hoangdinhphu',
                   ).push(context),
               child: const Text('Booking page', style: AppStyles.button),
             ),

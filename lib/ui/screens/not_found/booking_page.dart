@@ -4,9 +4,9 @@ import 'package:demo_structure/core/themes/text.dart';
 import 'package:demo_structure/ui/widgets/my_app_bar.dart';
 
 class BookingPage extends StatelessWidget {
-  const BookingPage({super.key, required this.bookingId, required this.userId});
+  const BookingPage({super.key, required this.booking, required this.userId});
 
-  final String bookingId;
+  final String booking;
   final String userId;
 
   @override
@@ -20,7 +20,7 @@ class BookingPage extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {},
-              child: Text('Booking: $bookingId', style: AppStyles.button),
+              child: Text('Booking: $booking', style: AppStyles.button),
             ),
             const SizedBox(height: 20),
             ElevatedButton(

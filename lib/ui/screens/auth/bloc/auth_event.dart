@@ -11,6 +11,12 @@ class AuthInitialEvent extends AuthEvent {
   const AuthInitialEvent();
 }
 
+class AuthChangeEvent extends AuthEvent {
+  const AuthChangeEvent({required this.status});
+
+  final AuthStatus status;
+}
+
 class AuthLoginEvent extends AuthEvent {
   const AuthLoginEvent({required this.userName, required this.passWord});
 
