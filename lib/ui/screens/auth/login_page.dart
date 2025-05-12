@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:demo_structure/core/themes/text.dart';
 import 'package:demo_structure/ui/screens/auth/bloc/auth_bloc.dart';
 import 'package:demo_structure/ui/widgets/my_app_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

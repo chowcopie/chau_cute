@@ -16,9 +16,8 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed:
-                  () => const ProfileRoute(uid: 'vubaochau').push(context),
-              child: const Text('Profile page', style: AppStyles.button),
+              onPressed: () => const UsersRoute().push(context),
+              child: const Text('Users page', style: AppStyles.button),
             ),
           ],
         ),

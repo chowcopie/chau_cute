@@ -1,7 +1,6 @@
+import 'package:demo_structure/data/repositories/auth_repository.dart';
 import 'package:demo_structure/routing/app_router.dart';
 import 'package:flutter/material.dart';
-
-import 'package:go_router/go_router.dart';
 
 import 'package:demo_structure/core/themes/text.dart';
 import 'package:demo_structure/ui/widgets/my_app_bar.dart';
@@ -21,8 +20,8 @@ class ProfilePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => GoRouter.of(context).pop(),
-              child: const Text('Home page', style: AppStyles.button),
+              onPressed: () => AuthRepository.instance.logout(),
+              child: const Text('Log out', style: AppStyles.button),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -37,6 +36,11 @@ class ProfilePage extends StatelessWidget {
                     booking: 'hoangdinhphu',
                   ).push(context),
               child: const Text('Booking page', style: AppStyles.button),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => const RootRoute().push(context),
+              child: const Text('Root page', style: AppStyles.button),
             ),
           ],
         ),

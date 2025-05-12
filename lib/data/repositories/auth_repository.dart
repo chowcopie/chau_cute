@@ -1,12 +1,13 @@
-import 'package:demo_structure/data/enums/auth_status.dart';
-import 'package:demo_structure/data/services/auth/auth_local_service.dart';
-import 'package:demo_structure/data/services/auth/auth_remote_service.dart';
+import 'dart:async';
+
 import 'package:logger/logger.dart';
 import 'package:rxdart/rxdart.dart';
 
-class AuthRepository {
-  factory AuthRepository() => instance;
+import 'package:demo_structure/data/enums/auth_status.dart';
+import 'package:demo_structure/data/services/auth/auth_local_service.dart';
+import 'package:demo_structure/data/services/auth/auth_remote_service.dart';
 
+class AuthRepository {
   AuthRepository._() {
     remoteService = AuthRemoteService();
     localService = AuthLocalService();
@@ -24,12 +25,29 @@ class AuthRepository {
 
   /// Getter
   AuthStatus get authStatus => authState.value;
+  bool get isLoggedIn => authStatus == AuthStatus.authenticated;
 
   Future<void> init() async {
     Logger().i('Initializing authentication...');
     // Fake loading
     await Future.delayed(const Duration(seconds: 3));
     authState.add(AuthStatus.unauthenticated);
+  }
+
+  Future<AuthStatus> getAuthStatus() async {
+    if (authStatus != AuthStatus.checking) return authStatus;
+
+    final Completer<AuthStatus> completer = Completer();
+
+    final subs = authState.listen((value) {
+      if (value != AuthStatus.checking) {
+        completer.complete(value);
+      }
+    });
+
+    final status = await completer.future;
+    await subs.cancel();
+    return status;
   }
 
   Future<void> loginWithCredentials() async {

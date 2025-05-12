@@ -3,7 +3,6 @@ import 'package:demo_structure/data/repositories/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:demo_structure/data/enums/auth_status.dart';
-import 'package:logger/logger.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -18,7 +17,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   _onInitial(AuthInitialEvent event, Emitter emit) {
     AuthRepository.instance.authState.listen((authState) {
-      Logger().i('Authentication change $authState');
       add(AuthChangeEvent(status: authState));
     });
   }

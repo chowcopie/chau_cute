@@ -3,59 +3,86 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
-import 'package:demo_structure/ui/screens/auth/root_page.dart';
+import 'package:demo_structure/data/enums/auth_status.dart';
+import 'package:demo_structure/data/repositories/auth_repository.dart';
+import 'package:demo_structure/routing/app_router_listenable.dart';
+import 'package:demo_structure/routing/app_router_wrapper.dart';
+import 'package:demo_structure/ui/screens/auth/login_page.dart';
+import 'package:demo_structure/ui/screens/auth/splash_page.dart';
+import 'package:demo_structure/ui/screens/home/home_page.dart';
 import 'package:demo_structure/ui/screens/not_found/booking_page.dart';
 import 'package:demo_structure/ui/screens/not_found/not_found_page.dart';
 import 'package:demo_structure/ui/screens/profile/profile_page.dart';
+import 'package:demo_structure/ui/screens/users/users_page.dart';
 
 part 'app_router.g.dart';
+
+/// Danh sách route không cần đăng nhập
+const publicPaths = ['/notFound'];
 
 final router = GoRouter(
   routes: $appRoutes,
   debugLogDiagnostics: true,
   initialLocation: '/',
+  refreshListenable: AppRouterListenable.instance,
   errorBuilder: (context, state) => const NotFoundPage(),
+  redirect: (BuildContext context, GoRouterState state) async {
+    Logger().i('App router redirect ${state.matchedLocation}');
+
+    // Nếu route là public thì không cần check
+    if (publicPaths.contains(state.matchedLocation)) return null;
+
+    bool isLoggedIn = AuthRepository.instance.isLoggedIn;
+    final isLoggingIn = state.matchedLocation == '/login';
+    final isRoot = state.matchedLocation == '/';
+
+    if (AuthRepository.instance.authStatus == AuthStatus.checking) {
+      final status = await AuthRepository.instance.getAuthStatus();
+      isLoggedIn = status == AuthStatus.authenticated;
+    }
+
+    // Nếu chưa đăng nhập → chuyển hướng về Login
+    if (!isLoggedIn) return const LoginRoute().location;
+
+    // Nếu đã đăng nhập rồi và đang ở trang Login → chuyển về Home
+    if (isLoggingIn || isRoot) return const HomeRoute().location;
+
+    return null;
+  },
 );
 
-abstract class SlideTransitionRoute extends GoRouteData {
-  const SlideTransitionRoute();
-
-  @override
-  Widget build(context, state);
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return CustomTransitionPage(
-      key: state.pageKey,
-      child: build(context, state),
-      transitionDuration: const Duration(milliseconds: 300),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        final curvedAnimation = CurvedAnimation(
-          parent: animation,
-          curve: Curves.easeInOut,
-        );
-
-        return FadeTransition(opacity: curvedAnimation, child: child);
-      },
-    );
-  }
-}
-
-@TypedGoRoute<RootRoute>(
-  path: '/',
-  routes: [
-    TypedGoRoute<ProfileRoute>(
-      path: 'profile/:uid',
-      routes: [TypedGoRoute<BookingRoute>(path: 'booking/:booking')],
-    ),
-  ],
-)
+@TypedGoRoute<RootRoute>(path: '/')
 class RootRoute extends GoRouteData {
   const RootRoute();
 
   @override
-  Widget build(context, state) => const RootPage();
+  Widget build(context, state) => const SplashPage();
+}
+
+@TypedGoRoute<HomeRoute>(
+  path: '/home',
+  routes: [
+    TypedGoRoute<UsersRoute>(path: 'users'),
+    TypedGoRoute<ProfileRoute>(
+      path: 'user/:uid',
+      routes: [TypedGoRoute<BookingRoute>(path: 'booking/:booking')],
+    ),
+  ],
+)
+class HomeRoute extends SlideTransitionRoute {
+  const HomeRoute();
+
+  @override
+  Widget build(context, state) => const HomePage();
+}
+
+class UsersRoute extends SlideTransitionRoute {
+  const UsersRoute();
+
+  @override
+  Widget build(context, state) => const UsersPage();
 }
 
 class ProfileRoute extends SlideTransitionRoute {
@@ -75,6 +102,14 @@ class BookingRoute extends SlideTransitionRoute {
 
   @override
   Widget build(context, state) => BookingPage(booking: booking, userId: uid);
+}
+
+@TypedGoRoute<LoginRoute>(path: '/login')
+class LoginRoute extends SlideTransitionRoute {
+  const LoginRoute();
+
+  @override
+  Widget build(context, state) => const LoginPage();
 }
 
 @TypedGoRoute<NotFoundRoute>(path: '/notFound')
