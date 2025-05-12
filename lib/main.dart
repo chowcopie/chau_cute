@@ -2,21 +2,21 @@
 
 import 'dart:ui';
 
-import 'package:demo_structure/core/themes/theme.dart';
-import 'package:demo_structure/data/repositories/auth_repository.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:demo_structure/core/themes/theme.dart';
+import 'package:demo_structure/data/repositories/auth_repository.dart';
 import 'package:demo_structure/routing/app_router.dart';
 import 'package:demo_structure/ui/screens/auth/bloc/auth_bloc.dart';
 
 void main() {
   usePathUrlStrategy();
   GoRouter.optionURLReflectsImperativeAPIs = true;
-  
+
   AuthRepository.instance.init();
 
   runApp(const MyApp());

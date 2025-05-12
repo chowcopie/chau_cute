@@ -3,10 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
-import 'package:logger/logger.dart';
 
-import 'package:demo_structure/data/enums/auth_status.dart';
-import 'package:demo_structure/data/repositories/auth_repository.dart';
 import 'package:demo_structure/routing/app_router_listenable.dart';
 import 'package:demo_structure/routing/app_router_wrapper.dart';
 import 'package:demo_structure/ui/screens/auth/login_page.dart';
@@ -28,29 +25,6 @@ final router = GoRouter(
   initialLocation: '/',
   refreshListenable: AppRouterListenable.instance,
   errorBuilder: (context, state) => const NotFoundPage(),
-  redirect: (BuildContext context, GoRouterState state) async {
-    Logger().i('App router redirect ${state.matchedLocation}');
-
-    // Nếu route là public thì không cần check
-    if (publicPaths.contains(state.matchedLocation)) return null;
-
-    bool isLoggedIn = AuthRepository.instance.isLoggedIn;
-    final isLoggingIn = state.matchedLocation == '/login';
-    final isRoot = state.matchedLocation == '/';
-
-    if (AuthRepository.instance.authStatus == AuthStatus.checking) {
-      final status = await AuthRepository.instance.getAuthStatus();
-      isLoggedIn = status == AuthStatus.authenticated;
-    }
-
-    // Nếu chưa đăng nhập → chuyển hướng về Login
-    if (!isLoggedIn) return const LoginRoute().location;
-
-    // Nếu đã đăng nhập rồi và đang ở trang Login → chuyển về Home
-    if (isLoggingIn || isRoot) return const HomeRoute().location;
-
-    return null;
-  },
 );
 
 @TypedGoRoute<RootRoute>(path: '/')
@@ -71,21 +45,21 @@ class RootRoute extends GoRouteData {
     ),
   ],
 )
-class HomeRoute extends SlideTransitionRoute {
+class HomeRoute extends AuthenticationRoute {
   const HomeRoute();
 
   @override
   Widget build(context, state) => const HomePage();
 }
 
-class UsersRoute extends SlideTransitionRoute {
+class UsersRoute extends AuthenticationRoute {
   const UsersRoute();
 
   @override
   Widget build(context, state) => const UsersPage();
 }
 
-class ProfileRoute extends SlideTransitionRoute {
+class ProfileRoute extends AuthenticationRoute {
   const ProfileRoute({required this.uid});
 
   final String uid;
@@ -94,7 +68,7 @@ class ProfileRoute extends SlideTransitionRoute {
   Widget build(context, state) => ProfilePage(uid: uid);
 }
 
-class BookingRoute extends SlideTransitionRoute {
+class BookingRoute extends AuthenticationRoute {
   const BookingRoute({required this.booking, required this.uid});
 
   final String booking;
@@ -105,7 +79,7 @@ class BookingRoute extends SlideTransitionRoute {
 }
 
 @TypedGoRoute<LoginRoute>(path: '/login')
-class LoginRoute extends SlideTransitionRoute {
+class LoginRoute extends AuthenticationRoute {
   const LoginRoute();
 
   @override
