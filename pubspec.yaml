@@ -41,7 +41,7 @@ dependencies:
   intl: any
   logger: ^2.5.0
 
-  flutter_native_splash: ^2.4.1
+  flutter_native_splash: ^2.4.6
   json_annotation: ^4.9.0
   rxdart: ^0.28.0
 
